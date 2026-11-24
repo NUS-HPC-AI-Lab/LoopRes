@@ -1,0 +1,23 @@
+# The packages `minisgl/` imports, for its own venv; `ninja` builds the native kernels through apache-tvm-ffi. Three
+# import their own package where they are used and are left out: the interactive shell's `prompt_toolkit`, the
+# FlashAttention backend's `sgl-kernel` and ModelScope downloads' `modelscope`.
+apache-tvm-ffi>=0.1.9,<0.2
+fastapi>=0.162
+# 0.6.18 compiles with an nvcc option CUDA 12.4 does not take.
+flashinfer-python>=0.6.4,<0.6.18
+huggingface_hub>=0.36,<1
+msgpack>=1.2,<2
+ninja>=1.13,<2
+numpy>=2,<3
+psutil>=7.2,<8
+pydantic>=2.14,<3
+PyYAML>=6.0
+pyzmq>=27,<28
+safetensors>=0.7
+starlette>=1,<2
+torch>=2.9,<2.11
+tqdm>=4.67
+# `server/args.py` reads the config's `dtype`, which 4.52 calls `torch_dtype`.
+transformers>=4.57,<4.58
+triton>=3.5,<4
+uvicorn>=0.54

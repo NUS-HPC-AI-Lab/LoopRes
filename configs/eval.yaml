@@ -1,0 +1,22 @@
+# The benchmarks protocol a reported evaluation reads: each benchmark averaged over `samples`
+# replies of every document or problem at 32768 new tokens.
+# A benchmark's `limit` keeps that many documents of each of its leaf tasks, or of its EvalPlus problems, evenly spaced.
+# Qwen3's thinking-mode sampling, for every generated benchmark.
+sampling: {temperature: 0.6, top_p: 0.95, top_k: 20}
+max_new_tokens: 32768
+benchmarks:
+  aime25: {task: loopres_aime25, samples: 16}
+  aime26: {task: loopres_aime26, samples: 16}
+  amc23: {task: loopres_amc23, samples: 16}
+  olympiadbench: {task: loopres_olympiadbench, samples: 1}
+  math500: {task: loopres_math500, samples: 1}
+  humaneval_plus:
+    evalplus: humaneval
+    problems: data/benchmarks/HumanEvalPlus-v0.1.10.jsonl
+    image: data/benchmarks/evalplus-v0.3.1
+    samples: 4
+  mbpp_plus:
+    evalplus: mbpp
+    problems: data/benchmarks/MbppPlus-v0.2.0.jsonl
+    image: data/benchmarks/evalplus-v0.3.1
+    samples: 2

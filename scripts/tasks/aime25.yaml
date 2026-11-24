@@ -1,0 +1,5 @@
+include: _math_template_yaml
+task: loopres_aime25
+dataset_path: json
+dataset_kwargs:
+  data_files: {test: data/benchmarks/AIME25.jsonl}

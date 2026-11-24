@@ -1,0 +1,3 @@
+include: _math_template_yaml
+task: loopres_olympiadbench
+dataset_path: realtreetune/olympiadbench

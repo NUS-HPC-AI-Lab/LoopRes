@@ -1,0 +1,6 @@
+include: _math_template_yaml
+task: loopres_amc23
+dataset_path: json
+dataset_kwargs:
+  data_files: {test: data/benchmarks/AMC23.jsonl}
+doc_to_text: "{{question | trim}}\n\nPlease reason step by step, and put your final answer within \\boxed{}."
