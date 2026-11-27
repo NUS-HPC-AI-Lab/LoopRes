@@ -2,11 +2,27 @@
 
 # LoopRes
 
-### Looped-transformer training and inference on Qwen3
+### Unlocking the Power of Loops in Pretrained LLMs with Loop Residuals
 
-| [Quick Start](#quick-start) | [Method](#method) | [Training](#training) | [Evaluation](#evaluation) | [Paper](docs/paper.pdf) | [Dataset](https://huggingface.co/datasets/oahzxl/LoopRes-Qwen3-SFT) | [Model](https://huggingface.co/oahzxl/LoopRes-Qwen3-1.7B) |
+[![arXiv](https://img.shields.io/badge/arXiv-2611.31094-b31b1b.svg?logo=arxiv)](https://arxiv.org/abs/2611.31094)
+[![Dataset](https://img.shields.io/badge/Dataset-LoopRes--Qwen3--SFT-ffd21e?logo=huggingface)](https://huggingface.co/datasets/oahzxl/LoopRes-Qwen3-SFT)
+[![Model](https://img.shields.io/badge/Model-LoopRes--Qwen3--1.7B-ffd21e?logo=huggingface)](https://huggingface.co/oahzxl/LoopRes-Qwen3-1.7B)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+[Method](#method) · [Installation](#quick-start) · [Training](#training) · [Inference](#inference) · [Evaluation](#evaluation) · [Citation](#citation) · [Acknowledgement](#acknowledgement)
 
 </div>
+
+This is the official implementation of
+**[LoopRes](https://arxiv.org/abs/2611.31094)**. LoopRes turns pretrained LLMs
+into looped transformers through finetuning. Each looped layer attends directly
+to the outputs of earlier loops through loop residuals. Each of those outputs
+carries a trainable loop-aware key, and each layer only sees a window of the
+latest W loops. At 2× compute, LoopRes improves Qwen3-1.7B-Base by **29.1%**
+over SFT, more than twice the gain of the best previous method. The gains hold
+across 6 pretrained LLMs from 3 model families, up to 30B, on 9 math and code
+benchmarks. From 1.7B to 8B, LoopRes also scales more steeply with test-time
+compute than SFT.
 
 <a id="method"></a>
 
@@ -93,6 +109,8 @@ continues from the latest complete checkpoint. A checkpoint directory is a
 transformers checkpoint: config.json, bfloat16 weights and the tokenizer; the
 run config is copied to the output directory as `config.yaml`.
 
+<a id="inference"></a>
+
 ## 🧱 Inference
 
 Download the model:
@@ -161,6 +179,33 @@ python -m scripts.eval --servers http://127.0.0.1:30080 http://127.0.0.1:30082 \
   http://127.0.0.1:30084 http://127.0.0.1:30086 \
   --output outputs/loopres/eval32k-12000 [--benchmarks aime25 amc23 ...] [--samples <count>]
 ```
+
+<a id="citation"></a>
+
+## 📝 Citation
+
+If you find LoopRes useful, please cite:
+
+```bibtex
+@misc{zhao2026unlockingpowerloopspretrained,
+      title={Unlocking the Power of Loops in Pretrained LLMs with Loop Residuals},
+      author={Xuanlei Zhao and Hailun Xu and Kai Wang and Yang Luo and Yingxuan Ren and Zirui Zhu and Yuxuan Lou and Kun Xu and Yan Wang and Kanchan Sarkar and Yang You},
+      year={2026},
+      eprint={2611.31094},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2611.31094},
+}
+```
+
+<a id="acknowledgement"></a>
+
+## 🙏 Acknowledgement
+
+We thank the following projects for their open-source code:
+
+- [TaH](https://github.com/thu-nics/TaH)
+- [mini-sglang](https://github.com/sgl-project/mini-sglang)
 
 ## 📄 License
 
